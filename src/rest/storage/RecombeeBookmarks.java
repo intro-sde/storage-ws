@@ -37,7 +37,7 @@ public class RecombeeBookmarks {
 		return result;
 	}
 	
-	public static Bookmark[] listUserRatings(String userId) throws ApiException {
+	public static Bookmark[] listUserBookmarks(String userId) throws ApiException {
 		Bookmark[] result = client.send(new ListUserBookmarks(userId));
 		return result;
 	}
