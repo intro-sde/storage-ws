@@ -54,6 +54,7 @@ public class RatingResource {
 	@GET
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	@Path("by_item")
 	public Rating[] listItemRatings(@DefaultValue("")@QueryParam("itemId") String itemId) throws ApiException {
 		System.out.println("--> RatingResource request...");
 		System.out.println("--> URI = "+uriInfo);
@@ -65,6 +66,7 @@ public class RatingResource {
 	@GET
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	@Path("by_user")
 	public Rating[] listUserRatings(@DefaultValue("")@QueryParam("userId") String userId) throws ApiException {
 		System.out.println("--> RatingResource request...");
 		System.out.println("--> URI = "+uriInfo);

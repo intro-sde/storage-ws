@@ -55,6 +55,17 @@ public class ItemResource {
 	
 	@GET
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public Item[] searchtems(@DefaultValue("")@QueryParam("filter") String filter) throws ApiException {
+		System.out.println("--> ItemResource request...");
+		System.out.println("--> URI = "+uriInfo);
+		System.out.println("--> request = "+request);
+		Item[] items = RecombeeItems.search(filter);
+		return items;
+	}
+	
+	@GET
+	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	@Path("all")
 	public Item[] listAllItems() throws ApiException {
 		System.out.println("--> ItemResource request...");
 		System.out.println("--> URI = "+uriInfo);
@@ -65,6 +76,7 @@ public class ItemResource {
 	
 	@GET
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	@Path("activities")
 	public Item[] listActivities() throws ApiException {
 		System.out.println("--> ItemResource request...");
 		System.out.println("--> URI = "+uriInfo);

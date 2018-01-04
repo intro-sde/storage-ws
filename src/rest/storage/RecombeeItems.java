@@ -62,6 +62,14 @@ public class RecombeeItems {
 		return result;
 	}
 	
+	public static Item[] search(String filter) throws ApiException {
+		Item [] result = client.send(new ListItems()
+				  .setFilter(filter)
+				  .setReturnProperties(true)
+				);
+		return result;
+	}
+	
 	public static String getLastId() throws ApiException {
 		Item[] items = RecombeeItems.listActivities(); 
 		List<Integer> list = new LinkedList<>();
