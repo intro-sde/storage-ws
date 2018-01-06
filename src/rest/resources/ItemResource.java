@@ -34,6 +34,7 @@ public class ItemResource {
 	@Context
 	Request request;
 	
+	//TODO: add Type as query param and an if loop inside the method
 	@POST
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public void createNewItem(@DefaultValue("")@QueryParam("topic") String topic, @DefaultValue("")@QueryParam("city") String city, @DefaultValue("")@QueryParam("name") String name, @DefaultValue("")@QueryParam("from") String from, @DefaultValue("")@QueryParam("to") String to) throws ApiException {
@@ -84,5 +85,7 @@ public class ItemResource {
 		Item[] items = RecombeeItems.listActivities();
 		return items;
 	}
+	
+	//TODO: implement listRestaurants
 	
 }

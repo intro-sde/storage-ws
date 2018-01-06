@@ -51,6 +51,8 @@ public class BookmarkResource {
 		return;
 	}
 	
+	//TODO: implement listAllBookMarks()
+	
 	@GET
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

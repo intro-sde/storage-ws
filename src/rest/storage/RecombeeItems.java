@@ -79,6 +79,7 @@ public class RecombeeItems {
 		list.sort(Comparator.naturalOrder());
 		return String.valueOf(list.get(items.length-1));
 	}
+	
 	public static Item[] listRestaurants() throws ApiException {
 		Item [] result = client.send(new ListItems()
 				  .setFilter(" \"restaurant\" in 'type' ")
