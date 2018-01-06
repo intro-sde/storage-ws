@@ -24,8 +24,8 @@ public class RecombeeItems {
 	
 	public static void addActivityItem(String topic, String city, String name, String from, String to) throws ApiException {
 		//create new item with null attributes
-		String lastId = getLastId();
-		String itemId = lastId+1;
+		Integer lastId = getLastId();
+		String itemId = String.valueOf(lastId+1);
 		client.send(new AddItem(itemId));
 		//set the property values
 		itemValues.put("type","activity");
@@ -70,14 +70,14 @@ public class RecombeeItems {
 		return result;
 	}
 	
-	public static String getLastId() throws ApiException {
+	public static Integer getLastId() throws ApiException {
 		Item[] items = RecombeeItems.listActivities(); 
 		List<Integer> list = new LinkedList<>();
 		for (int i=0;i<items.length;i++) {
 			list.add(Integer.valueOf(items[i].getItemId()));
 		}
 		list.sort(Comparator.naturalOrder());
-		return String.valueOf(list.get(items.length-1));
+		return list.get(items.length-1);
 	}
 	
 	public static Item[] listRestaurants() throws ApiException {

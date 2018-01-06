@@ -24,8 +24,8 @@ public class RecombeeUsers {
 	
 	public static void addUser(String firstname, String lastname, String email, String birthyear) throws ApiException {
 		//create new user with null attributes
-		String lastId = getLastId();
-		String userId = lastId+1;
+		Integer lastId = getLastId();
+		String userId = String.valueOf(lastId+1);
 		client.send(new AddUser(userId));
 		//set the property values
 		userValues.put("firstname",firstname);
@@ -37,14 +37,14 @@ public class RecombeeUsers {
         client.send(r);
 	}
 	
-	public static String getLastId() throws ApiException {
+	public static Integer getLastId() throws ApiException {
 		User[] users = RecombeeUsers.listAllUsers(); 
 		List<Integer> list = new LinkedList<>();
 		for (int i=0;i<users.length;i++) {
 			list.add(Integer.valueOf(users[i].getUserId()));
 		}
 		list.sort(Comparator.naturalOrder());
-		return String.valueOf(list.get(users.length-1));
+		return list.get(users.length-1);
 	}
 	
 	public static User[] listAllUsers() throws ApiException {
