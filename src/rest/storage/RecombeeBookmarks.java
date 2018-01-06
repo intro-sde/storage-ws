@@ -41,5 +41,6 @@ public class RecombeeBookmarks {
 		Bookmark[] result = client.send(new ListUserBookmarks(userId));
 		return result;
 	}
+
 	
 }
