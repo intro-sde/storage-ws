@@ -1,4 +1,4 @@
-# storage-ws
+# Storage service
 
 RESTful web-service that implements CRUD administration tasks of entities. In this project we use Recombee for data storage therefore this service is a mixture of adaptive and data layer, since it serves as storage service, but also communicates to Recombee API. The following entities are used as wrapper classes for Recombee objects:
 
@@ -56,5 +56,5 @@ http://{base_url}/rdb/items:
 
 TODO: Update RecombeeItems.java and ItemResource;java for restaurants.
 
-### Reference
+Reference:
 Recombee API (version 1.6.0), Available at: https://docs.recombee.com/api.html.
