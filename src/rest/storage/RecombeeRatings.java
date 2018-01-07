@@ -13,17 +13,39 @@ import com.recombee.api_client.bindings.Rating;
 import com.recombee.api_client.exceptions.ApiException;
 
 import rest.connection.Connection;
+import rest.model.LocalItem;
+import rest.model.LocalRating;
 
 public class RecombeeRatings {
 	static RecombeeClient client = Connection.createRecombeeClient();
 	
-	public static void addRating(String userId, String itemId, double rating) throws ApiException {
+	public static LocalRating addRating(String userId, String itemId, double rating) throws ApiException {
+		Date timestamp = new Date();
 		client.send(new AddRating(userId, itemId, rating)
-				  .setTimestamp(new Date())
+				  .setTimestamp(timestamp)
 				  .setCascadeCreate(true)
 				);
+		LocalRating newRating = RecombeeRatings.getRating(itemId, timestamp);
+		return newRating;
 	}
 	
+	private static LocalRating getRating(String itemId, Date timestamp) throws ApiException {
+		Rating[] result = client.send(new ListItemRatings(itemId));
+		Rating rating = new Rating();
+		for (int i =0; i<result.length;i++)
+			if(result[i].getTimestamp()==timestamp) {
+				rating = result[i];
+				break;
+			}
+		LocalRating lRating = convert(rating);
+		return lRating;
+	}
+
+	private static LocalRating convert(Rating rating) {
+		LocalRating lRating = new LocalRating(rating.getUserId(), rating.getItemId(), rating.getRating(), rating.getTimestamp());
+		return lRating;
+	}
+
 	public static void deleteRating(String userId, String itemId, String timestamp) throws ParseException, ApiException {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		Date date = formatter.parse(timestamp);
@@ -32,13 +54,23 @@ public class RecombeeRatings {
 				);
 	}
 	
-	public static Rating[] listItemRatings(String itemId) throws ApiException {
+	public static LocalRating[] listItemRatings(String itemId) throws ApiException {
 		Rating[] result = client.send(new ListItemRatings(itemId));
-		return result;
+		LocalRating lRating[];
+		lRating = new LocalRating[result.length];
+		for (int i=0;i<result.length;i++) {
+			lRating[i]=convert(result[i]);
+		}
+		return lRating;
 	}
 	
-	public static Rating[] listUserRatings(String userId) throws ApiException {
+	public static LocalRating[] listUserRatings(String userId) throws ApiException {
 		Rating[] result = client.send(new ListUserRatings(userId));
-		return result;
+		LocalRating lRating[];
+		lRating = new LocalRating[result.length];
+		for (int i=0;i<result.length;i++) {
+			lRating[i]=convert(result[i]);
+		}
+		return lRating;
 	}
 }

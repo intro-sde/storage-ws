@@ -20,6 +20,7 @@ import javax.ws.rs.core.UriInfo;
 import com.recombee.api_client.bindings.Item;
 import com.recombee.api_client.exceptions.ApiException;
 
+import rest.model.LocalItem;
 import rest.storage.RecombeeItems;
 
 @Stateless
@@ -34,16 +35,30 @@ public class ItemResource {
 	@Context
 	Request request;
 	
-	//TODO: add Type as query param and an if loop inside the method
+
 	@POST
+	@Path("activity")
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public void createNewItem(@DefaultValue("")@QueryParam("topic") String topic, @DefaultValue("")@QueryParam("city") String city, @DefaultValue("")@QueryParam("name") String name, @DefaultValue("")@QueryParam("from") String from, @DefaultValue("")@QueryParam("to") String to) throws ApiException {
+	public LocalItem createNewActivity(@DefaultValue("")@QueryParam("topic") String topic, @DefaultValue("")@QueryParam("city") String city, @DefaultValue("")@QueryParam("name") String name, @DefaultValue("")@QueryParam("from") String from, @DefaultValue("")@QueryParam("to") String to) throws ApiException {
 		System.out.println("--> ItemResource request...");
 		System.out.println("--> URI = "+uriInfo);
 		System.out.println("--> request = "+request);
-		RecombeeItems.addActivityItem(topic,city, name, from, to);
-		return;
+		LocalItem newItem = RecombeeItems.addActivityItem(topic,city, name, from, to);
+		return newItem;
 	}
+	
+	@POST
+	@Path("restaurant")
+	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public LocalItem createNewRestaurant(@DefaultValue("")@QueryParam("topic") String topic, @DefaultValue("")@QueryParam("city") String city, @DefaultValue("")@QueryParam("name") String name, @DefaultValue("")@QueryParam("address") String address, @DefaultValue("")@QueryParam("rating") String rating) throws ApiException {
+		System.out.println("--> ItemResource request...");
+		System.out.println("--> URI = "+uriInfo);
+		System.out.println("--> request = "+request);
+		LocalItem newItem = RecombeeItems.addRestaurantItem(topic,city, name, address, rating);
+		return newItem;
+	}
+	
+	
 	
 	@DELETE
 	public void deleteItem(@DefaultValue("")@QueryParam("itemId") String itemId) throws ApiException, ParseException {
@@ -56,33 +71,33 @@ public class ItemResource {
 	
 	@GET
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public Item[] searchtems(@DefaultValue("")@QueryParam("filter") String filter) throws ApiException {
+	public LocalItem[] searchtems(@DefaultValue("")@QueryParam("filter") String filter) throws ApiException {
 		System.out.println("--> ItemResource request...");
 		System.out.println("--> URI = "+uriInfo);
 		System.out.println("--> request = "+request);
-		Item[] items = RecombeeItems.search(filter);
+		LocalItem[] items = RecombeeItems.search(filter);
 		return items;
 	}
 	
 	@GET
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Path("all")
-	public Item[] listAllItems() throws ApiException {
+	public LocalItem[] listAllItems() throws ApiException {
 		System.out.println("--> ItemResource request...");
 		System.out.println("--> URI = "+uriInfo);
 		System.out.println("--> request = "+request);
-		Item[] items = RecombeeItems.listAllItems();
+		LocalItem[] items = RecombeeItems.listAllItems();
 		return items;
 	}
 	
 	@GET
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Path("activities")
-	public Item[] listActivities() throws ApiException {
+	public LocalItem[] listActivities() throws ApiException {
 		System.out.println("--> ItemResource request...");
 		System.out.println("--> URI = "+uriInfo);
 		System.out.println("--> request = "+request);
-		Item[] items = RecombeeItems.listActivities();
+		LocalItem[] items = RecombeeItems.listActivities();
 		return items;
 	}
 	

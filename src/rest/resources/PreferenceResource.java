@@ -20,12 +20,13 @@ import javax.ws.rs.core.UriInfo;
 import com.recombee.api_client.bindings.Bookmark;
 import com.recombee.api_client.exceptions.ApiException;
 
-import rest.storage.RecombeeBookmarks;
+import rest.model.LocalPreference;
+import rest.storage.RecombeePreference;
 
 @Stateless
 @LocalBean
 @Path("/rdb/preferences")
-public class BookmarkResource {
+public class PreferenceResource {
 	
 	@Context
 	UriInfo uriInfo;
@@ -34,12 +35,12 @@ public class BookmarkResource {
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public void createNewPreference(@DefaultValue("")@QueryParam("userId") String userId, @DefaultValue("")@QueryParam("itemId") String itemId) throws ApiException {
+	public LocalPreference createNewPreference(@DefaultValue("")@QueryParam("userId") String userId, @DefaultValue("")@QueryParam("itemId") String itemId) throws ApiException {
 		System.out.println("--> BookmarkResource request...");
 		System.out.println("--> URI = "+uriInfo);
 		System.out.println("--> request = "+request);
-		RecombeeBookmarks.addPreference(userId, itemId);
-		return;
+		LocalPreference newPref = RecombeePreference.addPreference(userId, itemId);
+		return newPref;
 	}
 	
 	@DELETE
@@ -47,7 +48,7 @@ public class BookmarkResource {
 		System.out.println("--> BookmarkResource request...");
 		System.out.println("--> URI = "+uriInfo);
 		System.out.println("--> request = "+request);
-		RecombeeBookmarks.deletePreference(userId, itemId, timestamp);
+		RecombeePreference.deletePreference(userId, itemId, timestamp);
 		return;
 	}
 	
@@ -56,24 +57,24 @@ public class BookmarkResource {
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Path("by_item")
-	public Bookmark[] listItemBookmarks(@DefaultValue("")@QueryParam("itemId") String itemId) throws ApiException {
+	public LocalPreference[] listItemPreferences(@DefaultValue("")@QueryParam("itemId") String itemId) throws ApiException {
 		System.out.println("--> BookmarkResource request...");
 		System.out.println("--> URI = "+uriInfo);
 		System.out.println("--> request = "+request);
-		Bookmark[] itemBookmarks = RecombeeBookmarks.listItemBookmarks(itemId);
-		return itemBookmarks;
+		LocalPreference[] itemPref = RecombeePreference.listItemPreferences(itemId);
+		return itemPref;
 	}
 	
 	@GET
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Path("by_user")
-	public Bookmark[] listUserBookmarks(@DefaultValue("")@QueryParam("userId") String userId) throws ApiException {
+	public LocalPreference[] listUserPreferences(@DefaultValue("")@QueryParam("userId") String userId) throws ApiException {
 		System.out.println("--> BookmarkResource request...");
 		System.out.println("--> URI = "+uriInfo);
 		System.out.println("--> request = "+request);
-		Bookmark[] userBookmarks = RecombeeBookmarks.listUserBookmarks(userId);
-		return userBookmarks;
+		LocalPreference[] userPref= RecombeePreference.listUserPreferences(userId);
+		return userPref;
 	}
 	
 }

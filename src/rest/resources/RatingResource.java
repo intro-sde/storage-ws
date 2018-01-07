@@ -20,6 +20,7 @@ import javax.ws.rs.core.UriInfo;
 import com.recombee.api_client.bindings.Rating;
 import com.recombee.api_client.exceptions.ApiException;
 
+import rest.model.LocalRating;
 import rest.storage.RecombeeRatings;
 
 @Stateless
@@ -34,12 +35,12 @@ public class RatingResource {
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public void createNewRating(@DefaultValue("")@QueryParam("userId") String userId, @DefaultValue("")@QueryParam("itemId") String itemId, @DefaultValue("")@QueryParam("rating") String ratingString) throws ApiException {
+	public LocalRating createNewRating(@DefaultValue("")@QueryParam("userId") String userId, @DefaultValue("")@QueryParam("itemId") String itemId, @DefaultValue("")@QueryParam("rating") String ratingString) throws ApiException {
 		System.out.println("--> RatingResource request...");
 		System.out.println("--> URI = "+uriInfo);
 		System.out.println("--> request = "+request);
-		RecombeeRatings.addRating(userId, itemId, Double.parseDouble(ratingString));
-		return;
+		LocalRating newRating = RecombeeRatings.addRating(userId, itemId, Double.parseDouble(ratingString));
+		return newRating;
 	}
 	
 	@DELETE
@@ -55,11 +56,11 @@ public class RatingResource {
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Path("by_item")
-	public Rating[] listItemRatings(@DefaultValue("")@QueryParam("itemId") String itemId) throws ApiException {
+	public LocalRating[] listItemRatings(@DefaultValue("")@QueryParam("itemId") String itemId) throws ApiException {
 		System.out.println("--> RatingResource request...");
 		System.out.println("--> URI = "+uriInfo);
 		System.out.println("--> request = "+request);
-		Rating[] itemRatings = RecombeeRatings.listItemRatings(itemId);
+		LocalRating[] itemRatings = RecombeeRatings.listItemRatings(itemId);
 		return itemRatings;
 	}
 	
@@ -67,11 +68,11 @@ public class RatingResource {
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Path("by_user")
-	public Rating[] listUserRatings(@DefaultValue("")@QueryParam("userId") String userId) throws ApiException {
+	public LocalRating[] listUserRatings(@DefaultValue("")@QueryParam("userId") String userId) throws ApiException {
 		System.out.println("--> RatingResource request...");
 		System.out.println("--> URI = "+uriInfo);
 		System.out.println("--> request = "+request);
-		Rating[] userRatings = RecombeeRatings.listUserRatings(userId);
+		LocalRating[] userRatings = RecombeeRatings.listUserRatings(userId);
 		return userRatings;
 	}
 	
