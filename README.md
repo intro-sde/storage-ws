@@ -38,18 +38,31 @@ RESTful web-service that implements CRUD administration tasks of entities. In th
 
 The following methods for the different endpoints are available in this service:
 
-http://{base_url}/rdb/users:
-- @PUT  | [firstname, lastname, email, birthyear] | Creates new user, where id is assigned automatically.
+https://sde-storage-ws.herokuapp.com/rdb/users:
+- @POST  | [firstname, lastname, email, birthyear] | Creates new user, where id is assigned automatically.
 - @DELETE | [userId] | Deletes user with given id.
-- @GET | [] | Lists all user in database, e.g.
+- @GET | [] | Lists all user in database.
 
-http://{base_url}/rdb/items:
-- @POST | [topic, city, name, from, to, type, address, rating] | Creates new activity or restaurant item depending on the type. The columns that are not relevant will be null.
+https://sde-storage-ws.herokuapp.com/rdb/items:
+- /activity @POST | [topic, city, name, from, to] | Creates new activity item. (The columns that are not relevant will be null.)
+- /restaurant @POST | [topic, city, name, address, rating] | Creates new restaurant item. (The columns that are not relevant will be null.)
 - @DELETE | [itemId] | Deletes item with given id.
 - @GET | [filter] | Get list of items with given filter. (Filter is a ReQL query returning boolean for each record.)
 - /all @GET | [] | Lists all items.
 - /activities @GET |[]| Returns list of activities.
 - /restaurants @ GET |[]| Returns list of restaurants.
+
+https://sde-storage-ws.herokuapp.com/rdb/ratings:
+- @POST  | [userId, itemId, rating] | Creates new rating with automatic timestamp.
+- @DELETE | [userId, itemId, timestamp] | Deletes rating with given user and item and timestamp.
+- /by_item @GET | [itemId] | Lists all ratings regarding given item.
+- /by_user @GET | [userId] | Lists all ratings regarding given user.
+
+https://sde-storage-ws.herokuapp.com/rdb/preferences:
+- @POST  | [userId, itemId] | Creates new preference with automatic timestamp.
+- @DELETE | [userId, itemId, timestamp] | Deletes preference with given user and item and timestamp.
+- /by_item @GET | [itemId] | Lists all preferences regarding given item.
+- /by_user @GET | [userId] | Lists all preferences regarding given user.
 
 *every query parameter is a String. 
 
