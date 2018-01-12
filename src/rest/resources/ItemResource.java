@@ -101,6 +101,16 @@ public class ItemResource {
 		return items;
 	}
 	
-	//TODO: implement listRestaurants
+	@GET
+	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	@Path("restaurants")
+	public LocalItem[] listRestaurants() throws ApiException {
+		System.out.println("--> ItemResource request...");
+		System.out.println("--> URI = "+uriInfo);
+		System.out.println("--> request = "+request);
+		LocalItem[] items = RecombeeItems.listRestaurants();
+		return items;
+	}
+	
 	
 }
