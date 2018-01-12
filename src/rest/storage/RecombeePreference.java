@@ -8,15 +8,12 @@ import com.recombee.api_client.RecombeeClient;
 import com.recombee.api_client.api_requests.AddBookmark;
 import com.recombee.api_client.api_requests.DeleteBookmark;
 import com.recombee.api_client.api_requests.ListItemBookmarks;
-import com.recombee.api_client.api_requests.ListItemRatings;
 import com.recombee.api_client.api_requests.ListUserBookmarks;
 import com.recombee.api_client.bindings.Bookmark;
-import com.recombee.api_client.bindings.Rating;
 import com.recombee.api_client.exceptions.ApiException;
 
 import rest.connection.Connection;
 import rest.model.LocalPreference;
-import rest.model.LocalRating;
 
 public class RecombeePreference {
 	//aka Preferences that we store to have initial info from users
@@ -35,7 +32,7 @@ public class RecombeePreference {
 		Bookmark[] result = client.send(new ListItemBookmarks(itemId));
 		Bookmark pref = new Bookmark();
 		for (int i =0; i<result.length;i++)
-			if(result[i].getTimestamp()==timestamp) {
+			if(result[i].getTimestamp().compareTo(timestamp)<0) {
 				pref = result[i];
 				break;
 			}

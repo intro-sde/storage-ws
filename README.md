@@ -66,8 +66,5 @@ https://sde-storage-ws.herokuapp.com/rdb/preferences:
 
 *every query parameter is a String. 
 
-
-TODO: Update RecombeeItems.java and ItemResource;java for restaurants.
-
 Reference:
 Recombee API (version 1.6.0), Available at: https://docs.recombee.com/api.html.

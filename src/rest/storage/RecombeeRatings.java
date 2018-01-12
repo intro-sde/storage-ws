@@ -33,7 +33,7 @@ public class RecombeeRatings {
 		Rating[] result = client.send(new ListItemRatings(itemId));
 		Rating rating = new Rating();
 		for (int i =0; i<result.length;i++)
-			if(result[i].getTimestamp()==timestamp) {
+			if(result[i].getTimestamp().compareTo(timestamp)<0) {
 				rating = result[i];
 				break;
 			}
