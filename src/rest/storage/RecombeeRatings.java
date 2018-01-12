@@ -9,6 +9,7 @@ import com.recombee.api_client.api_requests.AddRating;
 import com.recombee.api_client.api_requests.DeleteRating;
 import com.recombee.api_client.api_requests.ListItemRatings;
 import com.recombee.api_client.api_requests.ListUserRatings;
+import com.recombee.api_client.api_requests.Request;
 import com.recombee.api_client.bindings.Rating;
 import com.recombee.api_client.exceptions.ApiException;
 
@@ -19,21 +20,21 @@ import rest.model.LocalRating;
 public class RecombeeRatings {
 	static RecombeeClient client = Connection.createRecombeeClient();
 	
-	public static LocalRating addRating(String userId, String itemId, double rating) throws ApiException {
+	public static void addRating(String userId, String itemId, double rating) throws ApiException {
 		Date timestamp = new Date();
-		client.send(new AddRating(userId, itemId, rating)
+		Request r = new AddRating(userId, itemId, rating)
 				  .setTimestamp(timestamp)
-				  .setCascadeCreate(true)
-				);
-		LocalRating newRating = RecombeeRatings.getRating(itemId, timestamp);
-		return newRating;
+				  .setCascadeCreate(true);
+		client.send(r);
+		//RecombeeRatings.getRating(itemId, timestamp);
+		return;
 	}
 	
 	private static LocalRating getRating(String itemId, Date timestamp) throws ApiException {
 		Rating[] result = client.send(new ListItemRatings(itemId));
 		Rating rating = new Rating();
 		for (int i =0; i<result.length;i++)
-			if(result[i].getTimestamp().compareTo(timestamp)<0) {
+			if(result[i].getTimestamp().compareTo(timestamp)==0) {
 				rating = result[i];
 				break;
 			}

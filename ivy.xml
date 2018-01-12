@@ -65,7 +65,7 @@
         <!--Other dependencies-->
         <dependency org="net.sf.dozer" name="dozer" rev="5.5.1"/>
         <dependency org="joda-time" name="joda-time" rev="2.9.6"/>
-        <dependency org="org.slf4j" name="slf4j-nop" rev="1.7.21"/>
+         <!--<dependency org="org.slf4j" name="slf4j-nop" rev="1.7.21"/> -->
         
         <!--JSON dependencies-->
         <dependency org="org.json" name="json" rev="20160810"/>

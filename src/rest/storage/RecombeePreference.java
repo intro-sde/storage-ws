@@ -9,6 +9,7 @@ import com.recombee.api_client.api_requests.AddBookmark;
 import com.recombee.api_client.api_requests.DeleteBookmark;
 import com.recombee.api_client.api_requests.ListItemBookmarks;
 import com.recombee.api_client.api_requests.ListUserBookmarks;
+import com.recombee.api_client.api_requests.Request;
 import com.recombee.api_client.bindings.Bookmark;
 import com.recombee.api_client.exceptions.ApiException;
 
@@ -18,21 +19,21 @@ import rest.model.LocalPreference;
 public class RecombeePreference {
 	//aka Preferences that we store to have initial info from users
 	static RecombeeClient client = Connection.createRecombeeClient();
-	public static LocalPreference addPreference(String userId, String itemId) throws ApiException {
+	public static void addPreference(String userId, String itemId) throws ApiException {
 		Date timestamp = new Date();
-		client.send(new AddBookmark(userId, itemId)
+		Request r = new AddBookmark(userId, itemId)
 				  .setTimestamp(timestamp)
-				  .setCascadeCreate(true)
-				);
-		LocalPreference newPref = RecombeePreference.getPreference(itemId, timestamp);
-		return newPref;
+				  .setCascadeCreate(true);
+		client.send(r);
+		//LocalPreference newPref = RecombeePreference.getPreference(itemId, timestamp);
+		return;
 	}
 	
 	private static LocalPreference getPreference(String itemId, Date timestamp) throws ApiException {
 		Bookmark[] result = client.send(new ListItemBookmarks(itemId));
 		Bookmark pref = new Bookmark();
 		for (int i =0; i<result.length;i++)
-			if(result[i].getTimestamp().compareTo(timestamp)<0) {
+			if(result[i].getTimestamp().compareTo(timestamp)==0) {
 				pref = result[i];
 				break;
 			}

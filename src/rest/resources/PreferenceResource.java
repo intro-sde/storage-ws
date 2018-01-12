@@ -35,12 +35,12 @@ public class PreferenceResource {
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public LocalPreference createNewPreference(@DefaultValue("")@QueryParam("userId") String userId, @DefaultValue("")@QueryParam("itemId") String itemId) throws ApiException {
+	public void createNewPreference(@DefaultValue("")@QueryParam("userId") String userId, @DefaultValue("")@QueryParam("itemId") String itemId) throws ApiException {
 		System.out.println("--> BookmarkResource request...");
 		System.out.println("--> URI = "+uriInfo);
 		System.out.println("--> request = "+request);
-		LocalPreference newPref = RecombeePreference.addPreference(userId, itemId);
-		return newPref;
+		RecombeePreference.addPreference(userId, itemId);
+		return;
 	}
 	
 	@DELETE

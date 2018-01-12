@@ -35,12 +35,12 @@ public class RatingResource {
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public LocalRating createNewRating(@DefaultValue("")@QueryParam("userId") String userId, @DefaultValue("")@QueryParam("itemId") String itemId, @DefaultValue("")@QueryParam("rating") String ratingString) throws ApiException {
+	public void createNewRating(@DefaultValue("")@QueryParam("userId") String userId, @DefaultValue("")@QueryParam("itemId") String itemId, @DefaultValue("")@QueryParam("rating") String ratingString) throws ApiException {
 		System.out.println("--> RatingResource request...");
 		System.out.println("--> URI = "+uriInfo);
 		System.out.println("--> request = "+request);
-		LocalRating newRating = RecombeeRatings.addRating(userId, itemId, Double.parseDouble(ratingString));
-		return newRating;
+		RecombeeRatings.addRating(userId, itemId, Double.parseDouble(ratingString));
+		return;
 	}
 	
 	@DELETE
