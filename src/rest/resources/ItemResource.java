@@ -71,11 +71,18 @@ public class ItemResource {
 	
 	@GET
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public LocalItem[] searchtems(@DefaultValue("")@QueryParam("filter") String filter) throws ApiException {
+	public LocalItem[] searchtems(@DefaultValue("")@QueryParam("filter") String filter, @QueryParam("count") String count) throws ApiException {
 		System.out.println("--> ItemResource request...");
 		System.out.println("--> URI = "+uriInfo);
 		System.out.println("--> request = "+request);
-		LocalItem[] items = RecombeeItems.search(filter);
+
+		LocalItem[] items;
+		if (count==null) {
+			items = RecombeeItems.search(filter);
+		}else {
+			items = RecombeeItems.searchWithCount(filter, Long.parseLong(count));
+		}
+		
 		return items;
 	}
 	

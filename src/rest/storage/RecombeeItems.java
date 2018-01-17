@@ -170,4 +170,18 @@ public class RecombeeItems {
 		}
 		return lItem;
 	}
+
+	public static LocalItem[] searchWithCount(String filter, long count) throws ApiException {
+		Item [] result = client.send(new ListItems()
+				  .setFilter(filter)
+				  .setReturnProperties(true)
+				  .setCount(count)
+				);
+		LocalItem lItem[];
+		lItem = new LocalItem[result.length];
+		for (int i=0;i<result.length;i++) {
+			lItem[i]=convert(result[i]);
+		}
+		return lItem;
+	}
  }
