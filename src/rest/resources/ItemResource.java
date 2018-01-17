@@ -93,22 +93,35 @@ public class ItemResource {
 	@GET
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Path("activities")
-	public LocalItem[] listActivities() throws ApiException {
+	public LocalItem[] listActivities(@QueryParam("count") String count) throws ApiException {
 		System.out.println("--> ItemResource request...");
 		System.out.println("--> URI = "+uriInfo);
 		System.out.println("--> request = "+request);
-		LocalItem[] items = RecombeeItems.listActivities();
+		LocalItem[] items;
+		if (count==null) {
+			items = RecombeeItems.listActivities();
+		}else {
+			items = RecombeeItems.listActivitiesWithCount(Long.parseLong(count));
+		}
+		
 		return items;
 	}
 	
 	@GET
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Path("restaurants")
-	public LocalItem[] listRestaurants() throws ApiException {
+	public LocalItem[] listRestaurants(@QueryParam("count") String count) throws ApiException {
 		System.out.println("--> ItemResource request...");
 		System.out.println("--> URI = "+uriInfo);
 		System.out.println("--> request = "+request);
-		LocalItem[] items = RecombeeItems.listRestaurants();
+		LocalItem[] items;
+		
+		if (count==null) {
+			items = RecombeeItems.listRestaurants();
+		}else {
+			items = RecombeeItems.listRestaurantsWithCount(Long.parseLong(count));
+		}
+		
 		return items;
 	}
 	

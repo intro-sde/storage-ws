@@ -49,8 +49,8 @@ https://sde-storage-ws.herokuapp.com/rdb/items:
 - @DELETE | [itemId] | Deletes item with given id.
 - @GET | [filter] | Get list of items with given filter. (Filter is a ReQL query returning boolean for each record.)
 - /all @GET | [] | Lists all items.
-- /activities @GET |[]| Returns list of activities.
-- /restaurants @ GET |[]| Returns list of restaurants.
+- /activities @GET |[count(optional)]| Returns list of activities.
+- /restaurants @ GET |[count(optional)]| Returns list of restaurants.
 
 https://sde-storage-ws.herokuapp.com/rdb/ratings:
 - @POST  | [userId, itemId, rating] | Creates new rating with automatic timestamp.

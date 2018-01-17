@@ -107,6 +107,20 @@ public class RecombeeItems {
 		return lItem;
 	}
 	
+	public static LocalItem[] listActivitiesWithCount(long count) throws ApiException {
+		Item [] result = client.send(new ListItems()
+				  .setFilter(" \"activity\" in 'type' ")
+				  .setReturnProperties(true)
+				  .setCount(count)
+				);
+		LocalItem lItem[];
+		lItem = new LocalItem[result.length];
+		for (int i=0;i<result.length;i++) {
+			lItem[i]=convert(result[i]);
+		}
+		return lItem;
+	}
+	
 	public static LocalItem[] search(String filter) throws ApiException {
 		Item [] result = client.send(new ListItems()
 				  .setFilter(filter)
@@ -134,6 +148,20 @@ public class RecombeeItems {
 		Item [] result = client.send(new ListItems()
 				  .setFilter(" \"restaurant\" in 'type' ")
 				  .setReturnProperties(true)
+				);
+		LocalItem lItem[];
+		lItem = new LocalItem[result.length];
+		for (int i=0;i<result.length;i++) {
+			lItem[i]=convert(result[i]);
+		}
+		return lItem;
+	}
+	
+	public static LocalItem[] listRestaurantsWithCount(long count) throws ApiException {
+		Item [] result = client.send(new ListItems()
+				  .setFilter(" \"restaurant\" in 'type' ")
+				  .setReturnProperties(true)
+				  .setCount(count)
 				);
 		LocalItem lItem[];
 		lItem = new LocalItem[result.length];
