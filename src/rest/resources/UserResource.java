@@ -53,8 +53,9 @@ public class UserResource {
 	}
 	
 	@GET
+	@Path("/all")
 	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public LocalUser[] listAllItems() throws ApiException {
+	public LocalUser[] listAllUsers() throws ApiException {
 		System.out.println("--> UserResource request...");
 		System.out.println("--> URI = "+uriInfo);
 		System.out.println("--> request = "+request);

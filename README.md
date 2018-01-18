@@ -41,7 +41,8 @@ The following methods for the different endpoints are available in this service:
 https://sde-storage-ws.herokuapp.com/rdb/users:
 - @POST  | [firstname, lastname, email, birthyear] | Creates new user, where id is assigned automatically.
 - @DELETE | [userId] | Deletes user with given id.
-- @GET | [] | Lists all user in database.
+- /all @GET | [] | Lists all user in database.
+- @GET | [firstname, lastname, email, birthyear ] | Gives back the userId of the given User.
 
 https://sde-storage-ws.herokuapp.com/rdb/items:
 - /activity @POST | [topic, city, name, from, to] | Creates new activity item. (The columns that are not relevant will be null.)
