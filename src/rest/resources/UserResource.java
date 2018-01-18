@@ -62,5 +62,16 @@ public class UserResource {
 		return users;
 	}
 	
+		
+	@GET
+	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	public String getUserId(@DefaultValue("")@QueryParam("firstname") String firstname, @DefaultValue("")@QueryParam("lastname") String lastname, @DefaultValue("")@QueryParam("email") String email, @DefaultValue("")@QueryParam("birthyear") String birthyear) throws ApiException {
+		System.out.println("--> UserResource request...");
+		System.out.println("--> URI = "+uriInfo);
+		System.out.println("--> request = "+request);
+		String userIdn = RecombeeUsers.getUserId(firstname, lastname, email, birthyear);
+		return userIdn;
+	}
+	
 	
 }
