@@ -78,4 +78,15 @@ public class RecombeeUsers {
 	public static void deleteUser(String userId) throws ApiException {
 		client.send(new DeleteUser(userId));
 	}
+	
+	public static String getUserId(String firstname,String lastname, String email, String birthyear) throws ApiException {
+		
+		User [] result = client.send(new ListUsers()
+				  .setReturnProperties(true)
+				  .setFilter(firstname+" in 'firstname' "+lastname+" in 'lastname' "+email+" in 'email' "+birthyear+" in 'birthyear' ")
+				);
+		LocalUser newUser = convert(result[0]);
+		String userId = newUser.getUserId();
+	    return userId;
+	}
 }
