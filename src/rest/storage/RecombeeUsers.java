@@ -83,7 +83,7 @@ public class RecombeeUsers {
 		
 		User [] result = client.send(new ListUsers()
 				  .setReturnProperties(true)
-				  .setFilter(firstname+" in 'firstname' "+lastname+" in 'lastname' "+email+" in 'email' "+birthyear+" in 'birthyear' ")
+				  .setFilter(firstname+" in 'firstname' and "+lastname+" in 'lastname' and "+email+" in 'email' and "+birthyear+" in 'birthyear' ")
 				);
 		LocalUser newUser = convert(result[0]);
 		String userId = newUser.getUserId();
