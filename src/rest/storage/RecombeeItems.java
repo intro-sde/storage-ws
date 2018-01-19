@@ -65,6 +65,7 @@ public class RecombeeItems {
 	}
 	
 	private static LocalItem getItem(String itemId) throws ApiException {
+		itemId = "\""+itemId+"\"";
 		Item [] result = client.send(new ListItems()
 				  .setReturnProperties(true)
 				  .setFilter(itemId+" in 'itemId' ")

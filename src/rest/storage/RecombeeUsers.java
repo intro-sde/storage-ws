@@ -39,7 +39,8 @@ public class RecombeeUsers {
         return newUser;
 	}
 	
-	private static LocalUser getUser(String userId) throws ApiException {
+	public static LocalUser getUser(String userId) throws ApiException {
+		userId = "\""+userId+"\"";
 		User [] result = client.send(new ListUsers()
 				  .setReturnProperties(true)
 				  .setFilter(userId+" in 'userId' ")
@@ -79,8 +80,11 @@ public class RecombeeUsers {
 		client.send(new DeleteUser(userId));
 	}
 	
-	public static String getUserId(String firstname,String lastname, String email, String birthyear) throws ApiException {
-		
+	public static String getLocalUserId(String firstname,String lastname, String email, String birthyear) throws ApiException {
+		firstname = "\""+firstname+"\"";
+		lastname = "\""+lastname+"\"";
+		email = "\""+email+"\"";
+		birthyear = "\""+birthyear+"\"";
 		User [] result = client.send(new ListUsers()
 				  .setReturnProperties(true)
 				  .setFilter(firstname+" in 'firstname' and "+lastname+" in 'lastname' and "+email+" in 'email' and "+birthyear+" in 'birthyear' ")
