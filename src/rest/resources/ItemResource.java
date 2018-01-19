@@ -39,6 +39,7 @@ public class ItemResource {
 	@POST
 	@Path("activity")
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public LocalItem createNewActivity(@DefaultValue("")@QueryParam("topic") String topic, @DefaultValue("")@QueryParam("city") String city, @DefaultValue("")@QueryParam("name") String name, @DefaultValue("")@QueryParam("from") String from, @DefaultValue("")@QueryParam("to") String to) throws ApiException {
 		System.out.println("--> ItemResource request...");
 		System.out.println("--> URI = "+uriInfo);
@@ -50,6 +51,7 @@ public class ItemResource {
 	@POST
 	@Path("restaurant")
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	@Produces({MediaType.TEXT_XML, MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public LocalItem createNewRestaurant(@DefaultValue("")@QueryParam("topic") String topic, @DefaultValue("")@QueryParam("city") String city, @DefaultValue("")@QueryParam("name") String name, @DefaultValue("")@QueryParam("address") String address, @DefaultValue("")@QueryParam("rating") String rating) throws ApiException {
 		System.out.println("--> ItemResource request...");
 		System.out.println("--> URI = "+uriInfo);

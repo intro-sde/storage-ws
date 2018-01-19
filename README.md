@@ -22,7 +22,7 @@ RESTful web-service that implements CRUD administration tasks of entities. In th
         "rating": "null",
         "address": "null"
     }
-- LocalRating (implemented as RecombeeRating, ratings arein the range of [-1.0,1.0]):
+- LocalRating (implemented as RecombeeRating, ratings are in the range of [-1.0,1.0]):
 	 {
         "userId": "1",
         "itemId": "2",
