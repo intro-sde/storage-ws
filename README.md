@@ -1,6 +1,6 @@
 # Storage service
 
-RESTful web-service that implements CRUD administration tasks of entities. In this project we use Recombee for data storage therefore this service is a mixture of adaptive and data layer, since it serves as storage service, but also communicates to Recombee API. The following entities are used as wrapper classes for Recombee objects:
+RESTful web-service that implements CRUD administration tasks of entities. In this project we use Recombee for data storage. Therefore, this service is a mixture of adaptive and data layer, since it serves as storage service, but also communicates to Recombee API. The following entities are used as wrapper classes for Recombee objects:
 
 - LocalUser (implemented as RecombeeUser):
 	{
